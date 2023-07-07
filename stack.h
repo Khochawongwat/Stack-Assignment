@@ -11,6 +11,7 @@ private:
 public:
     Stack(NodePtr t = nullptr);
     ~Stack();
+    char get_top();
     void push(char x);
     char pop();
     void printall();
@@ -18,6 +19,9 @@ public:
     bool isEmpty();
 };
 
+char Stack::get_top(){
+  return top->get_value();
+}
 Stack::Stack(NodePtr t){
   if(t) {
     top=t;
