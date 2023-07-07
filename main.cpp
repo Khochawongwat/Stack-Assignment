@@ -21,51 +21,55 @@ int main(int argc, char* argv[]) {
                         countOpen++;
                         break;
                     case ')': {
-                        char k = stack.pop();
-                        if (k != '(') {
+                        if (stack.isEmpty() || stack.pop() != '(') {
                             balanced = false;
                             stopped = true;
-                        }else{
-                          countClose++;
+                        } else {
+                            countClose++;
                         }
                         break;
                     }
                     case ']': {
-                        char k = stack.pop();
-                        if (k != '[') {
+                        if (stack.isEmpty() || stack.pop() != '[') {
                             balanced = false;
                             stopped = true;
-                        }else{
-                          countClose++;
+                        } else {
+                            countClose++;
                         }
                         break;
                     }
                     case '}': {
-                        char k = stack.pop();
-                        if (k != '{') {
+                        if (stack.isEmpty() || stack.pop() != '{') {
                             balanced = false;
                             stopped = true;
-                        }else{
-                          countClose++;
+                        } else {
+                            countClose++;
                         }
                         break;
                     }
                     default:
                         break;
                 }
+                
+                if (stopped) {
+                    countClose++;
+                    stopped = false;
+                }
             }
             
-            if(!stopped) balanced = stack.isEmpty();
+            if (!stopped) {
+                balanced = balanced && stack.isEmpty();
+            }
             
             if (balanced) {
                 cout << expression << ": Match" << endl;
             } else {
                 cout << expression << ": Not Match";
-                if(countClose < countOpen){
-                  cout << " > Too many open parentheses";
-                }else if(countClose > countOpen){
-                  cout << " > Too many close parentheses";
-                } 
+                if (countClose < countOpen) {
+                    cout << " > Too many open parentheses";
+                } else if (countClose > countOpen) {
+                    cout << " > Too many close parentheses";
+                }
                 cout << endl;
             }
         }
